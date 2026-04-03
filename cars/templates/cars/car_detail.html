@@ -1,0 +1,46 @@
+{% extends 'cars/base.html' %}
+{% block title %}{{ car.brand.name }} {{ car.name }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6">
+        {% if car.image %}
+            <img src="{{ car.image.url }}" class="img-fluid rounded shadow">
+        {% else %}
+            <div class="bg-secondary text-white rounded d-flex align-items-center justify-content-center" style="height:350px;font-size:5rem;">🚗</div>
+        {% endif %}
+    </div>
+    <div class="col-md-6">
+        <h2>{{ car.brand.name }} {{ car.name }}</h2>
+        <p class="text-muted">{{ car.year }} 年份</p>
+        <h3 class="text-danger">NT$ {{ car.price|floatformat:0 }}</h3>
+        <hr>
+        <table class="table">
+            <tr><th>燃料類型</th><td>{{ car.get_fuel_type_display }}</td></tr>
+            <tr><th>變速箱</th><td>{{ car.get_transmission_display }}</td></tr>
+            <tr><th>排氣量</th><td>{{ car.engine_cc }} cc</td></tr>
+            <tr><th>座位數</th><td>{{ car.seats }} 人</td></tr>
+        </table>
+        <p>{{ car.description }}</p>
+        <a href="{% url 'inquiry' car.pk %}" class="btn btn-danger btn-lg w-100">📩 立即詢價 / 預約</a>
+    </div>
+</div>
+
+{% if related_cars %}
+<hr class="my-5">
+<h4>同品牌其他車款</h4>
+<div class="row row-cols-1 row-cols-md-3 g-3">
+    {% for c in related_cars %}
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <h6>{{ c.name }} ({{ c.year }})</h6>
+                <p class="text-danger">NT$ {{ c.price|floatformat:0 }}</p>
+                <a href="{% url 'car_detail' c.pk %}" class="btn btn-sm btn-outline-secondary">查看</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+{% endblock %}

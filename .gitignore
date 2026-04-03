@@ -1,0 +1,17 @@
+# 虛擬環境
+venv/
+
+# 資料庫
+db.sqlite3
+
+# Python 暫存
+__pycache__/
+*.pyc
+*.pyo
+
+# 媒體上傳檔案
+media/
+
+# 系統檔
+.DS_Store
+Thumbs.db

@@ -1,0 +1,52 @@
+{% extends 'cars/base.html' %}
+{% block title %}車款列表{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">🚘 所有車款</h2>
+
+<!-- 搜尋篩選區 -->
+<div class="card mb-4">
+    <div class="card-body">
+        <form method="get">
+            <div class="row g-2">
+                <div class="col-md-4">{{ form.keyword }}</div>
+                <div class="col-md-3">{{ form.fuel_type }}</div>
+                <div class="col-md-2">{{ form.min_price }}</div>
+                <div class="col-md-2">{{ form.max_price }}</div>
+                <div class="col-md-1">
+                    <button type="submit" class="btn btn-primary w-100">搜尋</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- 車款列表 -->
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for car in cars %}
+    <div class="col">
+        <div class="card h-100 shadow-sm">
+            {% if car.image %}
+                <img src="{{ car.image.url }}" class="card-img-top" style="height:200px;object-fit:cover;">
+            {% else %}
+                <div class="bg-secondary text-white d-flex align-items-center justify-content-center" style="height:200px;">
+                    🚗 無圖片
+                </div>
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ car.brand.name }} {{ car.name }}</h5>
+                <p class="text-muted">{{ car.year }} 年 ｜ {{ car.get_fuel_type_display }}</p>
+                <p class="fs-5 text-danger fw-bold">NT$ {{ car.price|floatformat:0 }}</p>
+            </div>
+            <div class="card-footer">
+                <a href="{% url 'car_detail' car.pk %}" class="btn btn-outline-primary w-100">查看詳情</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+        <div class="col-12">
+            <p class="text-center text-muted">沒有符合條件的車款。</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
