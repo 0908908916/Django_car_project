@@ -57,12 +57,12 @@ car_project/
 建立後台管理員帳號
 python manage.py createsuperuser
 
-<img width="710" height="334" alt="螢幕擷取畫面 2026-04-05 092550" src="https://github.com/user-attachments/assets/aa8d5e70-98be-4002-a9f1-660964cf0c22" />
-
-
 建立資料庫
 python manage.py makemigrations
 python manage.py migrate
 
 開啟專案
 python manage.py runserver
+
+<img width="882" height="551" alt="螢幕擷取畫面 2026-04-05 092825" src="https://github.com/user-attachments/assets/8eb0af43-6436-4c27-b53c-13a12548c3ac" />
+
